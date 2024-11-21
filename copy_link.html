@@ -6,19 +6,27 @@
 <body>
 <script>
 function copyLink() {
-    // Retrieve the full URL (including the fragment)
+    // Retrieve the full encoded URL from the 'link' parameter
     const url = new URL(window.location.href);
-    const fullLink = url.searchParams.get('link') + url.hash; // Append the fragment (#...) to the link
+    const encodedLink = url.searchParams.get('link');
+    const fullLink = decodeURIComponent(encodedLink); // Decode the link
 
-    // Copy the constructed link to the clipboard
+    // Copy the decoded full link to the clipboard
     navigator.clipboard.writeText(fullLink).then(() => {
-        alert('Link copied to clipboard: ' + fullLink);
+        alert('Lien copié'); // Updated popup text
+        window.close(); // Attempt to close the tab
     }).catch(err => {
         console.error('Failed to copy: ', err);
     });
 }
 
-window.onload = copyLink;
+// Trigger the function when the button is clicked
+function onLoad() {
+    copyLink();
+}
 </script>
+
+<!-- Button to trigger copy action -->
+<button onclick="onLoad()">Copier le lien</button>
 </body>
 </html>
