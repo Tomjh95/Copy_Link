@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>Copy Link</title>
+
 </head>
 <body>
 <script>
@@ -13,9 +14,10 @@ function copyLink() {
 
     // Copy the decoded full link to the clipboard
     navigator.clipboard.writeText(fullLink).then(() => {
-        alert('Link copied to clipboard: ' + fullLink);
+        //alert('Lien copié');
+        window.close();
     }).catch(err => {
-        console.error('Failed to copy: ', err);
+        console.error('Erreur lors de la copie: ', err);
     });
 }
 
