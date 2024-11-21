@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const linkElement = document.querySelector("#copy-link");
 
     linkElement.addEventListener("click", function (event) {
-        event.preventDefault(); // Prevent default link behavior
+        event.preventDefault(); // Prevent default behavior
 
         // Open a new tab
         const newTab = window.open("", "_blank");
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         // Extract the 'link' parameter from the original URL
                         const url = new URL(window.opener.location.href);
                         const encodedLink = url.searchParams.get('link');
-                        const fullLink = decodeURIComponent(encodedLink);
+                        const fullLink = decodeURIComponent(encodedLink || "");
 
                         // Copy the link to the clipboard
                         navigator.clipboard.writeText(fullLink)
