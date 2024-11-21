@@ -2,31 +2,31 @@
 <html>
 <head>
 <title>Copy Link</title>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const linkElement = document.querySelector("a");
+    
+    linkElement.addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent opening a new tab
+
+        // Extract the 'link' parameter from the URL
+        const url = new URL(window.location.href);
+        const encodedLink = url.searchParams.get('link');
+        const fullLink = decodeURIComponent(encodedLink); // Decode the link
+
+        // Copy the link to the clipboard
+        navigator.clipboard.writeText(fullLink).then(() => {
+            alert('Lien copié'); // Show success message
+            window.close(); // Attempt to close the tab
+        }).catch(err => {
+            console.error('Failed to copy:', err);
+        });
+    });
+});
+</script>
 </head>
 <body>
-<script>
-function copyLink() {
-    // Retrieve the full encoded URL from the 'link' parameter
-    const url = new URL(window.location.href);
-    const encodedLink = url.searchParams.get('link');
-    const fullLink = decodeURIComponent(encodedLink); // Decode the link
-
-    // Copy the decoded full link to the clipboard
-    navigator.clipboard.writeText(fullLink).then(() => {
-        alert('Lien copié'); // Updated popup text
-        window.close(); // Attempt to close the tab
-    }).catch(err => {
-        console.error('Failed to copy: ', err);
-    });
-}
-
-// Trigger the function when the button is clicked
-function onLoad() {
-    copyLink();
-}
-</script>
-
-<!-- Button to trigger copy action -->
-<button onclick="onLoad()">Copier le lien</button>
+<!-- Clickable link that will not open a new tab -->
+<a href="#" id="copy-link">Copier le lien</a>
 </body>
 </html>
