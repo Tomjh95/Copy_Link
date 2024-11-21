@@ -14,7 +14,7 @@ function copyLink() {
 
     // Copy the decoded full link to the clipboard
     navigator.clipboard.writeText(fullLink).then(() => {
-        //alert('Lien copié');
+        alert('Lien copié');
         window.close();
     }).catch(err => {
         console.error('Erreur lors de la copie: ', err);
