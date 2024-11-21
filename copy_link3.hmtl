@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Copy Link</title>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const linkElement = document.querySelector("#copy-link");
+
+    linkElement.addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent default link behavior
+
+        // Open a new tab
+        const newTab = window.open("", "_blank");
+
+        if (newTab) {
+            // Prepare the content for the new tab
+            const tabContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Processing...</title>
+                </head>
+                <body>
+                    <p>Copying link...</p>
+                    <script>
+                        // Extract the 'link' parameter from the opener URL
+                        const url = new URL(window.opener.location.href);
+                        const encodedLink = url.searchParams.get('link');
+                        const fullLink = decodeURIComponent(encodedLink || "");
+
+                        // Copy the link to the clipboard
+                        navigator.clipboard.writeText(fullLink)
+                            .then(() => {
+                                alert('Link copied to clipboard!');
+                                window.close(); // Close the tab after the alert
+                            })
+                            .catch(err => {
+                                alert('Failed to copy the link.');
+                                console.error('Copy failed:', err);
+                            });
+                    </script>
+                </body>
+                </html>
+            `;
+
+            // Write the content to the new tab
+            newTab.document.open();
+            newTab.document.write(tabContent);
+            newTab.document.close();
+        } else {
+            alert("Unable to open a new tab. Please check your browser's settings.");
+        }
+    });
+});
+</script>
+</head>
+<body>
+<!-- Clickable link -->
+<a href="#" id="copy-link">Copier le lien</a>
+</body>
+</html>
