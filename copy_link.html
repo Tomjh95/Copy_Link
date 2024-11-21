@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Copy Link</title>
+<title>Copy Link</title>
 </head>
 <body>
-    <script>
-        function copyLink() {
-            const url = new URL(window.location.href);
-            const linkToCopy = url.searchParams.get('link');
-            navigator.clipboard.writeText(linkToCopy);
-            alert('Link copied to clipboard!');
-        }
+<script>
+function copyLink() {
+    // Retrieve the full URL (including the fragment)
+    const url = new URL(window.location.href);
+    const fullLink = url.searchParams.get('link') + url.hash; // Append the fragment (#...) to the link
 
-        window.onload = copyLink;
-    </script>
+    // Copy the constructed link to the clipboard
+    navigator.clipboard.writeText(fullLink).then(() => {
+        alert('Link copied to clipboard: ' + fullLink);
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
+}
+
+window.onload = copyLink;
+</script>
 </body>
 </html>
