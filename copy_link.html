@@ -13,9 +13,13 @@ document.addEventListener("DOMContentLoaded", function () {
         const newTab = window.open("", "_blank");
 
         if (newTab) {
-            // Insert a message in the new tab
-            newTab.document.write(`
+            // Prepare the content for the new tab
+            const tabContent = `
+                <!DOCTYPE html>
                 <html>
+                <head>
+                    <title>Processing...</title>
+                </head>
                 <body>
                     <p id="message">Processing...</p>
                     <script>
@@ -39,7 +43,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     </script>
                 </body>
                 </html>
-            `);
+            `;
+
+            // Write the content to the new tab
+            newTab.document.open();
+            newTab.document.write(tabContent);
+            newTab.document.close();
 
             // Focus on the new tab
             newTab.focus();
